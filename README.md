@@ -9,4 +9,5 @@ participated).
 | Name | Contribution |
 | -------- | ---------- |
 | María Emilia Matosas | Frame & KPI´s ; EDA; Data Overview & Quality Audits |
+| Josefa Lara | Model & Evaluate (Prediction model and segmentation of listings) |
 
