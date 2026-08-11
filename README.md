@@ -10,4 +10,6 @@ participated).
 | -------- | ---------- |
 | María Emilia Matosas | Frame & KPI´s ; EDA; Data Overview & Quality Audits |
 | Josefa Lara | Model & Evaluate (Prediction model and segmentation of listings) |
+| Catalina Toledo | Ethics and Responsible Use |
+| Pablo Lineros | Ethics and Responsible Use |
 
