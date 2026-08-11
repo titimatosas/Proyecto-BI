@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Apple Pricing Intelligence | Etapa 4</title>
+  <style>
+    :root{--navy:#0b2942;--blue:#009fe3;--blue2:#3b82f6;--ink:#152536;--muted:#667085;--line:#d9e2ea;--bg:#f4f7fa;--card:#fff;--green:#16856b;--amber:#e08a00;--red:#c44747;--shadow:0 10px 30px rgba(11,41,66,.08)}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;font-variant-numeric:tabular-nums}
+    .shell{max-width:1480px;margin:auto;padding:22px}.top{background:linear-gradient(120deg,#09263f 0%,#0d3d61 72%,#075b85 100%);color:white;border-radius:18px;padding:26px 30px;display:flex;justify-content:space-between;gap:30px;align-items:center;box-shadow:var(--shadow)}
+    .eyebrow{color:#4cc8ff;font-size:12px;letter-spacing:1.7px;font-weight:800;text-transform:uppercase}.top h1{margin:5px 0 6px;font-size:clamp(25px,3vw,40px);letter-spacing:-1.2px}.top p{margin:0;color:#dceaf4;max-width:850px;line-height:1.5}.badge{text-align:center;padding:15px 20px;border:1px solid #4a718e;border-radius:13px;background:#ffffff0d;white-space:nowrap}.badge b{display:block;font-size:25px;color:#4cc8ff}.badge span{font-size:11px;text-transform:uppercase;letter-spacing:1px}
+    .nav{display:flex;gap:8px;margin:18px 0;overflow:auto}.nav button,.filter button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 15px;border-radius:10px;font-weight:700;cursor:pointer}.nav button.active,.filter button.active{background:var(--navy);color:white;border-color:var(--navy)}
+    .page{display:none}.page.active{display:block}.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.kpi{padding:18px;position:relative;overflow:hidden}.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}.kpi small{display:block;color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.7px}.kpi strong{display:block;font-size:27px;margin:8px 0 4px;color:var(--navy)}.kpi em{font-style:normal;font-size:12px;color:var(--muted)}.up{color:var(--green)!important}.warn{color:var(--amber)!important}
+    .grid{display:grid;grid-template-columns:1.45fr 1fr;gap:14px;margin-top:14px}.panel{padding:20px;min-width:0}.panel h2{font-size:16px;margin:0 0 3px}.sub{color:var(--muted);font-size:12px;margin-bottom:18px}.chart{height:280px;position:relative}.chart svg{width:100%;height:100%;overflow:visible}.axis{stroke:#cfd8e2;stroke-width:1}.gridline{stroke:#e8edf2;stroke-width:1}.label{fill:#687787;font-size:11px}.value{fill:#25384a;font-size:11px;font-weight:700}.tip{position:fixed;display:none;z-index:5;background:#0b2942;color:#fff;padding:8px 10px;border-radius:7px;font-size:12px;pointer-events:none;box-shadow:var(--shadow)}
+    .filter{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.filter button{padding:7px 11px;font-size:12px}.legend{display:flex;gap:15px;font-size:11px;color:var(--muted);margin-top:9px}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}
+    .insight{border-left:4px solid var(--blue);padding:13px 15px;background:#f2faff;border-radius:8px;margin:10px 0}.insight b{display:block;color:var(--navy);margin-bottom:4px}.insight p{font-size:13px;line-height:1.48;margin:0;color:#405367}.rank{display:grid;grid-template-columns:120px 1fr 58px;align-items:center;gap:10px;margin:13px 0;font-size:12px}.track{height:9px;background:#e9eef3;border-radius:10px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue));border-radius:10px}
+    .recommend{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.rec{padding:21px}.rec .num{display:grid;place-items:center;width:32px;height:32px;background:#e7f7fd;color:#007caf;border-radius:50%;font-weight:900}.rec h3{font-size:16px;margin:15px 0 7px}.rec p,.rec li{font-size:13px;line-height:1.5;color:#4c5e70}.rec ul{padding-left:18px}.impact{display:inline-block;background:#eaf8f3;color:#126c58;padding:5px 8px;border-radius:6px;font-size:11px;font-weight:800}
+    .model-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.metric-table{width:100%;border-collapse:collapse;font-size:13px}.metric-table th,.metric-table td{padding:11px 8px;border-bottom:1px solid #e4eaf0;text-align:right}.metric-table th:first-child,.metric-table td:first-child{text-align:left}.metric-table tr.best{background:#eaf8f3;font-weight:800}.segments{display:grid;gap:10px}.segment{padding:14px;border-radius:10px;border:1px solid var(--line);display:grid;grid-template-columns:45px 1fr auto;align-items:center;gap:12px}.segment .icon{width:42px;height:42px;border-radius:10px;background:#e8f5fb;color:#087fab;display:grid;place-items:center;font-weight:900}.segment h3{margin:0 0 3px;font-size:14px}.segment p{margin:0;color:var(--muted);font-size:12px}.segment strong{color:var(--navy)}
+    .foot{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:11px;margin:18px 3px;line-height:1.5}.method{padding:22px}.method h3{margin-top:0}.method p,.method li{font-size:13px;line-height:1.55;color:#43566a}.note{background:#fff8e8;border:1px solid #f0d99e;padding:13px;border-radius:9px;font-size:12px;color:#71551b}
+    @media(max-width:1050px){.kpis{grid-template-columns:repeat(3,1fr)}.grid,.model-grid{grid-template-columns:1fr}.recommend{grid-template-columns:1fr}}@media(max-width:650px){.shell{padding:10px}.top{padding:20px;display:block}.badge{margin-top:15px}.kpis{grid-template-columns:1fr 1fr}.chart{height:240px}.foot{display:block}}
+    @media print{body{background:#fff}.shell{max-width:none;padding:0}.top,.card{box-shadow:none}.nav{display:none}.page{display:block!important;break-after:page}.page:last-of-type{break-after:auto}.chart{height:240px}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div><div class="eyebrow">Business Intelligence · Stage 4 — Communicate</div><h1>Apple Pricing Intelligence</h1><p>Strategic view of pricing, promotions, inventory and marketplace positioning across Amazon and Flipkart, 2020–2026.</p></div>
+    <div class="badge"><b>80,000</b><span>listings analyzed</span></div>
+  </header>
+
+  <nav class="nav" aria-label="Dashboard pages">
+    <button class="active" data-page="overview">Executive overview</button>
+    <button data-page="pricing">Pricing & promotions</button>
+    <button data-page="model">Model & segments</button>
+    <button data-page="action">Recommendations</button>
+    <button data-page="method">Method & limits</button>
+  </nav>
+
+  <main>
+    <section id="overview" class="page active">
+      <div class="kpis">
+        <article class="card kpi"><small>Average current price</small><strong>$782.77</strong><em>Launch average: $963.96</em></article>
+        <article class="card kpi"><small>Average discount</small><strong>21.42%</strong><em class="up">↑ 17.86 pp vs. 2020</em></article>
+        <article class="card kpi"><small>Average rating</small><strong>4.45 / 5</strong><em>Stable across the period</em></article>
+        <article class="card kpi"><small>Available stock</small><strong>68.79%</strong><em>55,034 in-stock listings</em></article>
+        <article class="card kpi"><small>Markup cases</small><strong>10.84%</strong><em class="warn">8,669 require review</em></article>
+      </div>
+      <div class="grid">
+        <article class="card panel"><h2>Pricing evolution</h2><div class="sub">Average current price and discount by year</div><div id="yearChart" class="chart"></div><div class="legend"><span><i class="dot" style="background:#009fe3"></i>Current price (USD)</span><span><i class="dot" style="background:#e08a00"></i>Discount (%)</span></div></article>
+        <article class="card panel"><h2>Executive reading</h2><div class="sub">What the decision-maker should retain</div>
+          <div class="insight"><b>Discount intensity has tripled</b><p>Average discount rose from 8.71% in 2020 to 26.57% in 2026, while rating remained near 4.45. Promotions grew without a visible rating gain.</p></div>
+          <div class="insight"><b>Mac protects value</b><p>Mac has the highest current price ($1,382.49) and the lowest category discount (15.43%), supporting a margin-protection strategy.</p></div>
+          <div class="insight"><b>Channels behave almost identically</b><p>Amazon and Flipkart differ by only 0.20 percentage points in average discount, so category, condition and event matter more than platform.</p></div>
+        </article>
+      </div>
+      <div class="grid">
+        <article class="card panel"><h2>Category performance</h2><div class="sub">Select a KPI to compare categories</div><div class="filter" id="categoryFilter"><button class="active" data-metric="discount">Discount</button><button data-metric="price">Current price</button><button data-metric="reviews">Reviews</button></div><div id="categoryChart" class="chart"></div></article>
+        <article class="card panel"><h2>Stock status</h2><div class="sub">Share of all observed listings</div><div id="stockChart" class="chart"></div><div class="insight"><b>Inventory signal</b><p>Low/out-of-stock listings receive discounts above 27%, versus 18.42% when in stock. Avoid increasing discounts automatically when supply is constrained.</p></div></article>
+      </div>
+    </section>
+
+    <section id="pricing" class="page">
+      <div class="grid">
+        <article class="card panel"><h2>Promotional-event comparison</h2><div class="sub">Average discount; regular days provide the benchmark</div><div id="eventChart" class="chart"></div></article>
+        <article class="card panel"><h2>Incremental promotional pressure</h2><div class="sub">Event discount minus regular-day discount</div>
+          <div class="rank"><b>iPhone</b><div class="track"><div class="fill" style="width:100%"></div></div><strong>+15.49 pp</strong></div>
+          <div class="rank"><b>Mac</b><div class="track"><div class="fill" style="width:84.8%"></div></div><strong>+13.14 pp</strong></div>
+          <div class="rank"><b>Watch</b><div class="track"><div class="fill" style="width:76%"></div></div><strong>+11.77 pp</strong></div>
+          <div class="rank"><b>iPad</b><div class="track"><div class="fill" style="width:73%"></div></div><strong>+11.30 pp</strong></div>
+          <div class="insight"><b>Priority control: iPhone</b><p>iPhone receives the largest event uplift. Use predicted discount and a margin floor before approving campaign depth.</p></div>
+        </article>
+      </div>
+      <div class="grid">
+        <article class="card panel"><h2>Condition changes the economics</h2><div class="sub">New versus renewed/refurbished listings</div><div id="conditionChart" class="chart"></div></article>
+        <article class="card panel"><h2>Campaign interpretation</h2><div class="sub">Evidence, implication and decision</div>
+          <div class="insight"><b>Big Billion Days: deepest discount</b><p>37.02% average discount, 16.72 pp above regular days. Treat as an acquisition event, not a default pricing reference.</p></div>
+          <div class="insight"><b>Renewed products need separate guardrails</b><p>Renewed/refurbished listings average 35.53% discount and 4.15 rating, versus 16.71% and 4.55 for new products.</p></div>
+          <div class="insight"><b>No causal claim</b><p>Higher reviews during events do not prove that discounts caused demand. This dashboard supports decisions; it does not estimate campaign lift.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="model" class="page">
+      <div class="model-grid">
+        <article class="card panel"><h2>Discount prediction benchmark</h2><div class="sub">20% hold-out test set · 16,000 records · seed 42</div>
+          <table class="metric-table"><thead><tr><th>Model</th><th>MAE</th><th>RMSE</th><th>R²</th></tr></thead><tbody><tr><td>Baseline mean</td><td>14.441</td><td>16.757</td><td>0.000</td></tr><tr><td>Linear regression</td><td>6.589</td><td>8.223</td><td>0.759</td></tr><tr><td>Ridge</td><td>6.589</td><td>8.223</td><td>0.759</td></tr><tr class="best"><td>Random Forest ✓</td><td>2.898</td><td>4.145</td><td>0.939</td></tr></tbody></table>
+          <div class="insight"><b>Validation check</b><p>5-fold CV: MAE 4.530 ± 0.638 and RMSE 6.360 ± 1.039. The model remains useful, but hold-out performance is somewhat optimistic.</p></div>
+        </article>
+        <article class="card panel"><h2>Three operational listing segments</h2><div class="sub">KMeans · selected k=3 · silhouette 0.318</div><div class="segments">
+          <div class="segment"><div class="icon">P</div><div><h3>Premium Mac</h3><p>$1,999 launch · 11.88% discount · rating 4.45</p></div><strong>10,236</strong></div>
+          <div class="segment"><div class="icon">D</div><div><h3>Discount-driven iPhone</h3><p>$744 launch · 38.92% discount · highest reviews</p></div><strong>29,421</strong></div>
+          <div class="segment"><div class="icon">M</div><div><h3>Mainstream iPhone</h3><p>$862 launch · 11.07% discount · rating 4.50</p></div><strong>40,343</strong></div>
+        </div><div class="note" style="margin-top:14px">Segments describe listings, not customers. They should guide catalog tactics, not individual targeting.</div></article>
+      </div>
+    </section>
+
+    <section id="action" class="page">
+      <div class="recommend">
+        <article class="card rec"><div class="num">1</div><h3>Protect premium margin</h3><p>For the Premium Mac segment, keep discounts close to its historical 11.88% level and require approval above a 15% threshold.</p><ul><li>Owner: Pricing Manager</li><li>KPI: discount and margin proxy by segment</li><li>Cadence: weekly exceptions</li></ul><span class="impact">Expected effect: margin protection</span></article>
+        <article class="card rec"><div class="num">2</div><h3>Control event depth</h3><p>Use the Random Forest prediction as a reference band. Flag proposed discounts more than 5 pp above prediction, especially for iPhone campaigns.</p><ul><li>Owner: Campaign Manager</li><li>KPI: event uplift and prediction gap</li><li>Cadence: before each campaign</li></ul><span class="impact">Expected effect: efficient promotions</span></article>
+        <article class="card rec"><div class="num">3</div><h3>Separate renewed strategy</h3><p>Do not benchmark renewed/refurbished products against new ones. Pair discount decisions with their lower 4.15 average rating and quality controls.</p><ul><li>Owner: Category Manager</li><li>KPI: rating, returns and discount by condition</li><li>Cadence: monthly</li></ul><span class="impact">Expected effect: trust and quality</span></article>
+      </div>
+      <article class="card panel" style="margin-top:14px"><h2>90-day action plan</h2><div class="sub">From insight to controlled business test</div>
+        <div class="rank"><b>Days 1–30</b><div>Define category margin floors, exception thresholds and campaign baselines.</div><strong>Govern</strong></div>
+        <div class="rank"><b>Days 31–60</b><div>Pilot prediction-guided discounts on one event and compare against a holdout catalog.</div><strong>Test</strong></div>
+        <div class="rank"><b>Days 61–90</b><div>Review margin, rating, availability and subgroup errors; scale only if guardrails hold.</div><strong>Scale</strong></div>
+      </article>
+    </section>
+
+    <section id="method" class="page">
+      <article class="card method"><h3>Scope and definitions</h3><p>The dashboard uses the repository file <code>apple_products_pricing_2020_2026.csv</code>: 80,000 marketplace listing observations from 2020–2026. “Regular days” corresponds to the dataset value <code>None</code> in <code>Sale_Event</code>. Prices are shown in USD.</p><ul><li><b>Average discount:</b> mean of <code>Discount_Pct</code>.</li><li><b>Available stock:</b> listings with <code>Stock_Status = In Stock</code> divided by all listings.</li><li><b>Markup case:</b> listing with negative discount, meaning current price exceeds launch price.</li><li><b>Reviews:</b> engagement proxy, not units sold.</li></ul><h3>Responsible interpretation</h3><p>The dataset does not contain costs, margins, actual sales, customer identities or competitor prices. Therefore, the analysis cannot calculate real revenue or profit and cannot establish that a promotion caused demand. Model output should support human review, with error monitoring by platform, category, condition, event and stock status.</p><div class="note">Dataset license must be confirmed on the original Kaggle page before publishing or redistributing the CSV. The HTML contains only aggregated results.</div></article>
+    </section>
+  </main>
+  <footer class="foot"><span>Source: apple_products_pricing_2020_2026.csv · Analysis aligned with the group EDA and Stage 3 model.</span><span>Prepared for VP of E-Commerce Channel Strategy & Commercial Operations.</span></footer>
+</div>
+<div id="tip" class="tip"></div>
+<script>
+const year=[{x:'2020',price:662.20,discount:8.71},{x:'2021',price:722.25,discount:9.18},{x:'2022',price:742.50,discount:14.23},{x:'2023',price:793.95,discount:18.50},{x:'2024',price:801.93,discount:21.00},{x:'2025',price:799.67,discount:23.88},{x:'2026',price:759.80,discount:26.57}];
+const cats=[{x:'iPad',discount:26.19,price:573.08,reviews:43.60},{x:'iPhone',discount:19.57,price:758.67,reviews:65.19},{x:'Mac',discount:15.43,price:1382.49,reviews:41.17},{x:'Watch',discount:26.27,price:398.64,reviews:42.52}];
+const events=[{x:'Regular days',v:20.30},{x:'Black Friday',v:31.46},{x:'Great Indian Festival',v:33.45},{x:'Prime Day',v:34.44},{x:'Big Billion Days',v:37.02}];
+const stock=[{x:'In Stock',v:68.79,color:'#16856b'},{x:'Out of Stock',v:16.84,color:'#c44747'},{x:'Low Stock',v:14.36,color:'#e08a00'}];
+const conditions=[{x:'New',discount:16.71,rating:4.55,price:830.07},{x:'Renewed / Refurbished',discount:35.53,rating:4.15,price:641.02}];
+const NS='http://www.w3.org/2000/svg', tip=document.querySelector('#tip');
+function el(n,a={}){const e=document.createElementNS(NS,n);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e}
+function hover(node,text){node.addEventListener('mousemove',e=>{tip.style.display='block';tip.style.left=e.clientX+12+'px';tip.style.top=e.clientY+12+'px';tip.textContent=text});node.addEventListener('mouseleave',()=>tip.style.display='none')}
+function bars(id,data,suffix='',color='#009fe3'){
+ const box=document.getElementById(id);box.innerHTML='';const w=700,h=270,p={l:55,r:15,t:15,b:48},svg=el('svg',{viewBox:`0 0 ${w} ${h}`}),max=Math.max(...data.map(d=>d.v))*1.15;
+ for(let i=0;i<5;i++){let y=p.t+(h-p.t-p.b)*i/4;svg.append(el('line',{x1:p.l,y1:y,x2:w-p.r,y2:y,class:'gridline'}));let t=el('text',{x:p.l-8,y:y+4,'text-anchor':'end',class:'label'});t.textContent=(max*(4-i)/4).toFixed(max<100?0:0);svg.append(t)}
+ const bw=(w-p.l-p.r)/data.length*.58,gap=(w-p.l-p.r)/data.length;data.forEach((d,i)=>{let x=p.l+i*gap+(gap-bw)/2,bh=d.v/max*(h-p.t-p.b),y=h-p.b-bh,bar=el('rect',{x,y,width:bw,height:bh,rx:5,fill:d.color||color});hover(bar,`${d.x}: ${d.v.toLocaleString('en-US',{maximumFractionDigits:2})}${suffix}`);svg.append(bar);let l=el('text',{x:x+bw/2,y:h-p.b+18,'text-anchor':'middle',class:'label'});l.textContent=d.x;svg.append(l);let v=el('text',{x:x+bw/2,y:y-6,'text-anchor':'middle',class:'value'});v.textContent=d.v.toLocaleString('en-US',{maximumFractionDigits:2})+suffix;svg.append(v)});box.append(svg)
+}
+function dual(){const box=document.getElementById('yearChart');box.innerHTML='';const w=760,h=270,p={l:55,r:45,t:15,b:42},svg=el('svg',{viewBox:`0 0 ${w} ${h}`}),step=(w-p.l-p.r)/(year.length-1);for(let i=0;i<5;i++){let y=p.t+(h-p.t-p.b)*i/4;svg.append(el('line',{x1:p.l,y1:y,x2:w-p.r,y2:y,class:'gridline'}))}let ptsPrice=[],ptsDisc=[];year.forEach((d,i)=>{let x=p.l+i*step,yp=h-p.b-(d.price-600)/250*(h-p.t-p.b),yd=h-p.b-d.discount/30*(h-p.t-p.b);ptsPrice.push(`${x},${yp}`);ptsDisc.push(`${x},${yd}`);let l=el('text',{x,y:h-p.b+20,'text-anchor':'middle',class:'label'});l.textContent=d.x;svg.append(l);[['price',yp,'#009fe3','$'+d.price.toFixed(2)],['discount',yd,'#e08a00',d.discount.toFixed(2)+'%']].forEach(a=>{let c=el('circle',{cx:x,cy:a[1],r:5,fill:a[2],stroke:'#fff','stroke-width':2});hover(c,`${d.x} · ${a[3]}`);svg.append(c)})});svg.prepend(el('polyline',{points:ptsDisc.join(' '),fill:'none',stroke:'#e08a00','stroke-width':3}));svg.prepend(el('polyline',{points:ptsPrice.join(' '),fill:'none',stroke:'#009fe3','stroke-width':3}));box.append(svg)}
+function donut(){const box=document.getElementById('stockChart');box.innerHTML='';const svg=el('svg',{viewBox:'0 0 600 270'}),cx=190,cy=132,r=82,C=2*Math.PI*r;let off=0;stock.forEach(d=>{let c=el('circle',{cx,cy,r,fill:'none',stroke:d.color,'stroke-width':30,'stroke-dasharray':`${C*d.v/100} ${C}`,'stroke-dashoffset':-C*off/100,transform:`rotate(-90 ${cx} ${cy})`});hover(c,`${d.x}: ${d.v}%`);svg.append(c);off+=d.v});let center=el('text',{x:cx,y:128,'text-anchor':'middle',fill:'#0b2942','font-size':26,'font-weight':800});center.textContent='68.79%';svg.append(center);let ct=el('text',{x:cx,y:148,'text-anchor':'middle',class:'label'});ct.textContent='in stock';svg.append(ct);stock.forEach((d,i)=>{svg.append(el('circle',{cx:335,cy:90+i*43,r:6,fill:d.color}));let t=el('text',{x:350,y:94+i*43,class:'label'});t.textContent=`${d.x}  ${d.v}%`;svg.append(t)});box.append(svg)}
+function condition(){const data=conditions.map(d=>({x:d.x,v:d.discount}));bars('conditionChart',data,'%','#3b82f6')}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button,.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
+document.querySelectorAll('#categoryFilter button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#categoryFilter button').forEach(x=>x.classList.remove('active'));b.classList.add('active');let m=b.dataset.metric,s=m==='discount'?'%':m==='price'?' USD':'M';bars('categoryChart',cats.map(d=>({x:d.x,v:d[m]})),s,m==='discount'?'#009fe3':m==='price'?'#0b5c8a':'#16856b')});
+dual();bars('categoryChart',cats.map(d=>({x:d.x,v:d.discount})),'%');donut();bars('eventChart',events,'%','#e08a00');condition();
+</script>
+</body>
+</html>

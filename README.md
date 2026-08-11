@@ -13,3 +13,7 @@ participated).
 | Catalina Toledo | Ethics and Responsible Use |
 | Pablo Lineros | Ethics and Responsible Use |
 
+## Stage 4 - Communicate
+
+Open `dashboard_etapa4.html` in any modern browser. It is a self-contained interactive dashboard aligned with the notebook's KPIs, EDA, model evaluation, segmentation, recommendations, and ethical limitations. No installation or local server is required.
+
