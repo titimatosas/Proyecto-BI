@@ -8,10 +8,10 @@ participated).
 
 | Name | Contribution |
 | -------- | ---------- |
-| María Emilia Matosas | Frame & KPI´s ; EDA; Data Overview & Quality Audits |
+| María Emilia Matosas | Frame & KPI´s ; EDA; Presentation |
 | Josefa Lara | Model & Evaluate (Prediction model and segmentation of listings) |
-| Catalina Toledo | Ethics and Responsible Use |
-| Pablo Lineros | Ethics and Responsible Use |
+| Catalina Toledo | Ethics and Responsible Use; Presentation |
+| Pablo Lineros | Ethics and Responsible Use; Presentation |
 | Ignacia Castillo | Stage 4 - Communicate (Dashboard) |
 
 ## Stage 4 - Communicate
